@@ -54,4 +54,3 @@ TRANSITION - List of states (views) of your game
 
 ---------------------------------------------------------------------
 TASKS - List of tasks in order of priority
-xrcfvzgbuhn
