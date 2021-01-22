@@ -1,0 +1,29 @@
+.main {
+    background-color: black;
+}
+
+#gametitle {
+    display: flex;
+    justify-content: center;
+    color: rgb(78, 255, 8);
+}
+
+.startbtndiv {
+    display: flex;
+    justify-content: center;
+}
+
+#startbtn {
+    border: 2px solid white;
+    height: 100px;
+    width: 300px;
+    font-size: 400%;
+    color: green;
+}
+
+#starttxt {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: rgb(78, 255, 8);
+}
