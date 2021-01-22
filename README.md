@@ -6,7 +6,7 @@ Corona Dodger is a game where the player has to move a virus vertically in order
 
 To collect points the player has to collide with obstacles that help the virus spread. Points are discounted when the player collides with obstacles that counter the spread.
 
-The game whens when there is a collision with the Lockdown.
+The game ends when there is a collision with the Lockdown and the player loses.
 
 ---------------------------------------------------------------------
 MVP (DOM - CANVAS)- MVP definition here, list of minimum features
@@ -54,3 +54,19 @@ TRANSITION - List of states (views) of your game
 
 ---------------------------------------------------------------------
 TASKS - List of tasks in order of priority
+
+1) create start screen
+ - display game name
+ - start button
+ - simple instructions
+
+ 2) create game screen
+ - create canvas
+ - create virus
+ - create elements
+
+ 3) create game over screen
+ - display "Game Over- You hit Lockdown and cant spread anymore"
+ - display score
+ - restart button
+
