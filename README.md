@@ -66,7 +66,7 @@ TASKS - List of tasks in order of priority
  - create elements
 
  3) create game over screen
- - display "Game Over- You hit Lockdown and cant spread anymore"
+ - 
  - display score
  - restart button
 

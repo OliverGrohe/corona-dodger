@@ -38,8 +38,50 @@ canvas {
     background-color: black;
 }
 
-.section2 {
+
+/* .section2 {
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+
+#score {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+}
+
+
+.gameover {
+    background-color: black;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#gameover {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: rgb(78, 255, 8);
+    font-size: larger;
+}
+
+#score {
+    color: rgb(78, 255, 8);
+}
+
+.restartbtndiv {
+    display: flex;
+    justify-content: center;
+}
+
+#restartbtn {
+    border: 2px solid white;
+    height: 60px;
+    width: 200px;
+    font-size: 200%;
+    color: rgb(78, 255, 8);
+    background-color: black;
 }
