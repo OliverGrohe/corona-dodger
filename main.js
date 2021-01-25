@@ -9,6 +9,7 @@ let lockdownX = 950
 let lockdownY = 150
 let partyX = 950
 let partyY = 350
+let score = 0
 
 // Changing section-tag
 function deleteSectionOne() {
@@ -40,9 +41,9 @@ function clickStart() {
 
     setInterval(function(){
       requestAnimationFrame(draw)
-    }, 500)
+
+    }, 30)
   })
-  
 }
 clickStart()
 
@@ -63,24 +64,29 @@ lockdown.src ='/images/lockdown.jpeg'
 let party = document.createElement('img')
 party.src = '/images/party.jpeg'
 
+
 function draw(){
 
         // always clear canvas
-        ctx.clearRect(0, 0, 1000, 500) 
+        ctx.clearRect(0, 0, 1000, 500)
+        
+        // update elements
         maskX -= 10
         lockdownX -= 10
         partyX -= 10
+
+        collision()
 
         //draw elements
         ctx.drawImage(virus, virusX, virusY, 40, 40)
         ctx.drawImage(mask, maskX, maskY, 80, 40)
         ctx.drawImage(lockdown, lockdownX, lockdownY, 100, 40)
-        ctx.drawImage(party, partyX, partyY, 100, 40)
-        
-        // update elements
-        
+        ctx.drawImage(party, partyX, partyY, 100, 40)   
 }
 
+        // ctx.font = '20px Verdana'
+        // ctx.fontcolor = 'green'
+        // ctx.fillText('Score: ' + score, 10, canvas.height - 50)
 
 
 
@@ -88,12 +94,12 @@ document.addEventListener('keydown', (event) => {
   if (event.keyCode == 38 || event.key == "ArrowUp") {
      isUpArrow = true;
      isDownArrow = false;
-     virusY -= 10
+     virusY -= 15
   }
   else if (event.keyCode == 40 || event.key == "ArrowDown") {
      isUpArrow = false;
      isDownArrow = true;
-     virusY += 10
+     virusY += 15
   }
 })
 
@@ -101,6 +107,81 @@ document.addEventListener('keyup', (event) => {
  isRightArrow = false;
  isLeftArrow = false;
 })
+
+
+let maskArr = []
+// [{x: 50; y: 100}]
+let partyArr = []
+
+function collision () {
+    if (virusX < maskX + 80 && virusX + 40 > maskX && virusY < maskY + 40 && virusY + 40 > maskY) {
+      score -= 10
+      console.log("collision with virus")
+      // remove mask from array
+      console.log(maskArr.length)
+      maskArr.pop()
+      // maskArr.push({
+      //   x: canvas.width,
+      //   y: 50,
+      // })
+    } 
+
+    if (virusX < partyY + 100 && virusX + 40 > partyX && virusY < partyY + 40 && virusY + 40 > partyY) {
+      score += 10
+      console.log("collision")
+      partyArr.shift()
+      partyArr.push({
+        x: partyX,
+        y: Math.random(partyY)
+      })
+    }
+
+    if (virusX < lockdownY + 100 && virusX + 40 > lockdownX && virusY < lockdownY + 40 && virusY + 40 > lockdownY) {
+      clearInterval(intervalID)
+      deleteSectionTwo()
+      gameToEnd()
+  }
+}
+
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+
+// Changing section-tag
+function deleteSectionTwo () {
+  let sectionTwo = document.querySelector("section")
+  body.removeChild(sectionTwo)
+ }
+
+ // Creating end-screen HTML
+ function gameToEnd(){
+  let sectionTwo = document.createElement("section")
+  sectionTwo.innerHTML = `
+      <div id="gameover">
+        <h1>GAME OVER</h1>
+        <h3>You hit Lockdown and cant spread anymore!</h3>
+      </div>
+      <div id="score">
+        <h1>DISPLAY SCORE</h1>
+      </div>
+      <div>
+        <div class="restartbtndiv">
+          <button type="button" id="restartbtn">RESTART</button>
+        </div>
+      </div>
+      <script src="main.js"></script>
+        `
+  body.appendChild(sectionTwo)
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -207,34 +288,7 @@ document.addEventListener('keyup', (event) => {
 //---------------------------------------------------------------
 //---------------------------------------------------------------
 
-// Changing section-tag
-function deleteSectionTwo () {
-  let sectionTwo = document.querySelector("section")
-  body.removeChild(sectionTwo)
-  //console.log(body)
- }
 
- // Creating end-screen HTML
- function gameToEnd(){
-  let sectionTwo = document.createElement("section")
-  sectionTwo.innerHTML = `
-      <div id="gameover">
-        <h1>GAME OVER</h1>
-        <h3>You hit Lockdown and cant spread anymore!</h3>
-      </div>
-      <div id="score">
-        <h1>DISPLAY SCORE</h1>
-      </div>
-      <div>
-        <div class="restartbtndiv">
-          <button type="button" id="restartbtn">RESTART</button>
-        </div>
-      </div>
-      <script src="main.js"></script>
-        `
-  body.appendChild(sectionTwo)
-  //console.log(body)
-}
 
 
 // When collision with "Lockdown" happens, move to end-screen (ideas)
@@ -287,4 +341,4 @@ function deleteSectionTwo () {
 
 // function updateScore () {
 // - grabs last updated function score 
-// }
+//}
