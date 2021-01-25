@@ -38,10 +38,8 @@ function clickStart() {
     canvas = document.querySelector('canvas')
     ctx = canvas.getContext('2d')
     canvas.style.border = '2px solid black'
-
     setInterval(function(){
       requestAnimationFrame(draw)
-
     }, 30)
   })
 }
@@ -64,6 +62,7 @@ lockdown.src ='/images/lockdown.jpeg'
 let party = document.createElement('img')
 party.src = '/images/party.jpeg'
 
+let elements = [{x: canvas.width, y: Math.random()}]
 
 function draw(){
 
@@ -81,7 +80,7 @@ function draw(){
         ctx.drawImage(virus, virusX, virusY, 40, 40)
         ctx.drawImage(mask, maskX, maskY, 80, 40)
         ctx.drawImage(lockdown, lockdownX, lockdownY, 100, 40)
-        ctx.drawImage(party, partyX, partyY, 100, 40)   
+        ctx.drawImage(party, partyX, partyY, 100, 40)  
 }
 
         // ctx.font = '20px Verdana'
@@ -109,9 +108,24 @@ document.addEventListener('keyup', (event) => {
 })
 
 
-let maskArr = []
+let maskArr = [{x: 1000, y: 500}]
 // [{x: 50; y: 100}]
-let partyArr = []
+let partyArr = [{x: 1000, y: 500}]
+
+function rightToLeft(){
+  for (let i = 0; i < maskArr.length; i++){
+    ctx.drawImage(mask, maskX, maskY, 80, 40)
+    maskX--
+    if(maskX === 100) {
+      maskArr.pop()
+      maskArr.push({
+        x: 1000,
+        y: Math.random()
+      })
+    }
+  }
+}
+
 
 function collision () {
     if (virusX < maskX + 80 && virusX + 40 > maskX && virusY < maskY + 40 && virusY + 40 > maskY) {
@@ -119,7 +133,9 @@ function collision () {
       console.log("collision with virus")
       // remove mask from array
       console.log(maskArr.length)
-      maskArr.pop()
+      rightToLeft()
+      // rightToLeft()
+      // maskArr.pop()
       // maskArr.push({
       //   x: canvas.width,
       //   y: 50,
@@ -131,8 +147,8 @@ function collision () {
       console.log("collision")
       partyArr.shift()
       partyArr.push({
-        x: partyX,
-        y: Math.random(partyY)
+        x: canvas.width,
+        y: 50,
       })
     }
 
