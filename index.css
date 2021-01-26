@@ -71,6 +71,7 @@ canvas {
     flex-direction: column;
     color: rgb(78, 255, 8);
     font-size: larger;
+    background-color: black;
 }
 
 #score {
@@ -80,6 +81,7 @@ canvas {
 .restartbtndiv {
     display: flex;
     justify-content: center;
+    background-color: black;
 }
 
 #restartbtn {
