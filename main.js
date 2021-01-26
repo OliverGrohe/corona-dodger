@@ -10,6 +10,7 @@ let lockdownY = 150
 let partyX = 950
 let partyY = 350
 let score = 0
+let intervalID = 0
 
 // Changing section-tag
 function deleteSectionOne() {
@@ -40,7 +41,7 @@ function clickStart() {
     canvas.style.border = '2px solid black'
     setInterval(function(){
       requestAnimationFrame(draw)
-    }, 30)
+    }, 3)
   })
 }
 clickStart()
@@ -68,26 +69,16 @@ function draw(){
 
         // always clear canvas
         ctx.clearRect(0, 0, 1000, 500)
-        
-        // update elements
-        maskX -= 10
-        lockdownX -= 10
-        partyX -= 10
-
-        collision()
 
         //draw elements
-        ctx.drawImage(virus, virusX, virusY, 40, 40)
-        ctx.drawImage(mask, maskX, maskY, 80, 40)
-        ctx.drawImage(lockdown, lockdownX, lockdownY, 100, 40)
-        ctx.drawImage(party, partyX, partyY, 100, 40)  
+        ctx.drawImage(virus, virusX, virusY, 40, 40) 
+
+        rightToLeftMask()
+        rightToLeftLockdown()
+        rightToLeftParty()
+
+        collision()
 }
-
-        // ctx.font = '20px Verdana'
-        // ctx.fontcolor = 'green'
-        // ctx.fillText('Score: ' + score, 10, canvas.height - 50)
-
-
 
 document.addEventListener('keydown', (event) => {
   if (event.keyCode == 38 || event.key == "ArrowUp") {
@@ -107,49 +98,70 @@ document.addEventListener('keyup', (event) => {
  isLeftArrow = false;
 })
 
+let maskArr = [{x: 1000, y: 200}]
 
-let maskArr = [{x: 1000, y: 500}]
-// [{x: 50; y: 100}]
-let partyArr = [{x: 1000, y: 500}]
-
-function rightToLeft(){
+function rightToLeftMask(){
   for (let i = 0; i < maskArr.length; i++){
-    ctx.drawImage(mask, maskX, maskY, 80, 40)
-    maskX--
-    if(maskX === 100) {
-      maskArr.pop()
+    ctx.drawImage(mask, maskArr[i].x, maskArr[i].y, 80, 40)
+    maskArr[i].x--
+    if(maskArr[i].x === 100) {
       maskArr.push({
         x: 1000,
-        y: Math.random()
+        y: Math.floor(Math.random() * canvas.height)
       })
     }
   }
 }
 
+let lockdownArr = [{x: 1000, y: 500}]
+
+function rightToLeftLockdown(){
+  for (let i = 0; i < lockdownArr.length; i++){
+    ctx.drawImage(lockdown, lockdownArr[i].x, lockdownArr[i].y, 100, 40)
+    lockdownArr[i].x--
+    if(lockdownArr[i].x === 100) {
+      lockdownArr.push({
+        x: 1000,
+        y: Math.floor(Math.random() * canvas.height)
+      })
+    }
+  }
+}
+
+let partyArr = [{x: 1000, y: 500}]
+
+function rightToLeftParty(){
+  for (let i = 0; i < partyArr.length; i++){
+    ctx.drawImage(party, partyArr[i].x, partyArr[i].y, 100, 40)
+    partyArr[i].x--
+    if(partyArr[i].x === 100) {
+      partyArr.push({
+        x: 1000,
+        y: Math.floor(Math.random() * canvas.height)
+      })
+    }
+  }
+}
+
+// Virus stops at Top/Bottom
+// function virusLimit(){
+//   if (virusY === 0){
+
+//   }
+//   if (virusY >= canvas.height){
+    
+//   }
+// }
 
 function collision () {
     if (virusX < maskX + 80 && virusX + 40 > maskX && virusY < maskY + 40 && virusY + 40 > maskY) {
       score -= 10
       console.log("collision with virus")
-      // remove mask from array
-      console.log(maskArr.length)
-      rightToLeft()
-      // rightToLeft()
-      // maskArr.pop()
-      // maskArr.push({
-      //   x: canvas.width,
-      //   y: 50,
-      // })
     } 
 
     if (virusX < partyY + 100 && virusX + 40 > partyX && virusY < partyY + 40 && virusY + 40 > partyY) {
       score += 10
       console.log("collision")
-      partyArr.shift()
-      partyArr.push({
-        x: canvas.width,
-        y: 50,
-      })
     }
 
     if (virusX < lockdownY + 100 && virusX + 40 > lockdownX && virusY < lockdownY + 40 && virusY + 40 > lockdownY) {
@@ -158,6 +170,13 @@ function collision () {
       gameToEnd()
   }
 }
+
+// Tracking score
+// function score(){
+//       ctx.font = '20px Verdana'
+//       ctx.fontcolor = 'green'
+//       ctx.fillText('Score: ' + score, 10, canvas.height - 50)
+// }
 
 //---------------------------------------------------------------
 //---------------------------------------------------------------
