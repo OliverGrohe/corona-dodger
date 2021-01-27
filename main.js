@@ -149,12 +149,12 @@ function rightToLeftParty(){
 function collision() {
   for (let i = 0; i < maskArr.length; i++){
     if (virusX < maskArr[i].x + 80 && virusX + 40 > maskArr[i].x && virusY < maskArr[i].y + 40 && virusY + 40 > maskArr[i].y) {
-      score -= 10
+      score -= 1
     } 
   }
   for (let i = 0; i < partyArr.length; i++){
     if (virusX < partyArr[i].x + 100 && virusX + 40 > partyArr[i].x && virusY < partyArr[i].y + 40 && virusY + 40 > partyArr[i].y) {
-      score += 10
+      score += 1
     }
   }
   for (let i = 0; i < lockdownArr.length; i++){
