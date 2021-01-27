@@ -24,8 +24,8 @@ lockdown ='/images/lockdown.jpeg'
 let party = document.createElement('img')
 party = '/images/party.jpeg'
 
-let bgimg = document.createElement('img')
-bgimg = '/images/citybackground.jpeg'
+// let bgimg = document.createElement('img')
+// bgimg = '/images/citybackground.jpeg'
 
 function draw(){
         ctx.drawImage(bgimg, 0, 0)
@@ -34,10 +34,6 @@ function draw(){
         ctx.drawImage(lockdown, 500, 150)
         ctx.drawImage(party, 500, 250)
 }
-
-
-
-
 
 
 // intervalID = setInterval(() => {
