@@ -24,7 +24,6 @@ function mainToGame(){
   sectionTwo.innerHTML = `
         <canvas width="1000px" height="500px">
         </canvas>
-        <h1 id="score">SCORE</h1>
         <script src="main.js"></script>
         `
   body.appendChild(sectionTwo)
@@ -39,7 +38,7 @@ function clickStart() {
     canvas = document.querySelector('canvas')
     ctx = canvas.getContext('2d')
     canvas.style.border = '2px solid black'
-    setInterval(function(){
+    intervalID = setInterval(function(){
       requestAnimationFrame(draw)
     }, 3)
   })
@@ -74,8 +73,8 @@ function draw(){
         ctx.drawImage(virus, virusX, virusY, 40, 40)
         
         ctx.font = '20px Verdana'
-        ctx.fontcolor = 'green'
-        ctx.fillText('Score: ' + score, 10, canvas.height - 300)
+        ctx.fillStyle = 'green'
+        ctx.fillText('Score: ' + score, 10, canvas.height - 25)
 
         rightToLeftMask()
         rightToLeftLockdown()
@@ -106,9 +105,9 @@ let maskArr = [{x: 1000, y: 200}]
 
 function rightToLeftMask(){
   for (let i = 0; i < maskArr.length; i++){
-    ctx.drawImage(mask, maskArr[i].x, maskArr[i].y, 80, 40)
+    ctx.drawImage(mask, maskArr[i].x, maskArr[i].y, 100, 40)
     maskArr[i].x--
-    if(maskArr[i].x === 100) {
+    if(maskArr[i].x === 775) {
       maskArr.push({
         x: 1000,
         y: Math.floor(Math.random() * canvas.height)
@@ -123,7 +122,7 @@ function rightToLeftLockdown(){
   for (let i = 0; i < lockdownArr.length; i++){
     ctx.drawImage(lockdown, lockdownArr[i].x, lockdownArr[i].y, 100, 40)
     lockdownArr[i].x--
-    if(lockdownArr[i].x === 100) {
+    if(lockdownArr[i].x === 775) {
       lockdownArr.push({
         x: 1000,
         y: Math.floor(Math.random() * canvas.height)
@@ -138,7 +137,7 @@ function rightToLeftParty(){
   for (let i = 0; i < partyArr.length; i++){
     ctx.drawImage(party, partyArr[i].x, partyArr[i].y, 100, 40)
     partyArr[i].x--
-    if(partyArr[i].x === 100) {
+    if(partyArr[i].x === 700) {
       partyArr.push({
         x: 1000,
         y: Math.floor(Math.random() * canvas.height)
@@ -146,16 +145,6 @@ function rightToLeftParty(){
     }
   }
 }
-
-// Virus within Canvas
-// function virusLimit(){
-//   if (virusY === 0){
-//      
-//   }
-//   if (virusY >= canvas.height){
-//    
-//   }
-// }
 
 function collision() {
   for (let i = 0; i < maskArr.length; i++){
@@ -176,11 +165,6 @@ function collision() {
     }
   }
 }
-
-//Tracking score
-// function score(){
-
-// }
 
 //---------------------------------------------------------------
 //---------------------------------------------------------------
@@ -215,23 +199,17 @@ function deleteSectionTwo () {
   clickRestart()
 }
 
-
 //---------------------------------------------------------------
 //---------------------------------------------------------------
 //---------------------------------------------------------------
 //---------------------------------------------------------------
-
-
-// var el = document.getElementById('overlayBtn');
-// if(el){
-//   el.addEventListener('click', swapper, false);
-// }
 
 function clickRestart() {
   let restartBtn = document.querySelector("#restartbtn")
     restartBtn.addEventListener("click", function () {
       deleteSectionTwo()
       endToStart()
+      resetVar()
     })
 }
 
@@ -260,10 +238,17 @@ function endToStart(){
   body.appendChild(sectionThree)
 }
 
-
-
-
-
-
-
-
+function resetVar(){
+  canvas = ""
+  ctx = ""
+  virusX = 30
+  virusY = 175
+  maskX = 950
+  maskY = 50
+  lockdownX = 950
+  lockdownY = 150
+  partyX = 950
+  partyY = 350
+  score = 0
+  intervalID = 0
+}
