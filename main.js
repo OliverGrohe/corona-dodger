@@ -51,16 +51,16 @@ clickStart()
 //---------------------------------------------------------------
 
 let mask = document.createElement('img')
-mask.src = '/images/Mask.png'
+mask.src = './images/Mask.png'
 
 let virus = document.createElement('img')
-virus.src = '/images/Covid.png'
+virus.src = './images/Covid.png'
 
 let lockdown = document.createElement('img')
-lockdown.src ='/images/lockdown.jpeg'
+lockdown.src ='./images/lockdown.jpeg'
 
 let party = document.createElement('img')
-party.src = '/images/party.jpeg'
+party.src = './images/party.jpeg'
 
 let elements = [{x: canvas.width, y: Math.random()}]
 
