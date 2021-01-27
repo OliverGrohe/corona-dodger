@@ -161,7 +161,8 @@ function collision() {
     if (virusX < lockdownArr[i].x + 100 && virusX + 40 > lockdownArr[i].x && virusY < lockdownArr[i].y + 40 && virusY + 40 > lockdownArr[i].y) {
       clearInterval(intervalID)
       deleteSectionTwo()
-      gameToEnd()
+      addGameoverScreen()
+      clickRestart()
     }
   }
 }
@@ -178,7 +179,7 @@ function deleteSectionTwo () {
  }
 
  // Creating end-screen HTML
- function gameToEnd(){
+ function addGameoverScreen(){
   let sectionTwo = document.createElement("section")
   sectionTwo.innerHTML = `
       <div id="gameover">
@@ -193,10 +194,10 @@ function deleteSectionTwo () {
           <button type="button" id="restartbtn">RESTART</button>
         </div>
       </div>
-      <script src="main.js"></script>
+      
         `
   body.appendChild(sectionTwo)
-  clickRestart()
+  
 }
 
 //---------------------------------------------------------------
@@ -207,9 +208,14 @@ function deleteSectionTwo () {
 function clickRestart() {
   let restartBtn = document.querySelector("#restartbtn")
     restartBtn.addEventListener("click", function () {
+
+      console.log("click")
       deleteSectionTwo()
-      endToStart()
+      mainToGame()
       resetVar()
+      intervalID = setInterval(function(){
+        requestAnimationFrame(draw)
+      }, 3)
     })
 }
 
@@ -218,29 +224,29 @@ function deleteSectionThree () {
   body.removeChild(sectionThree)
  }
 
-function endToStart(){
-  let sectionThree = document.createElement("section")
-  sectionThree.innerHTML = `
-        <div>
-            <h1 id="gametitle">CORONA DODGER</h1>
-        </div>
-        <div class="startbtndiv">
-            <button type="button" id="startbtn">START</button>
-        </div>
-        <div class="box">
-            <h3 class="box" id="starttxt">
-                Keep the Corona virus alive by moving up and down with your keyboard,<br> 
-                collect spreader events and avoid the lockdown at all costs!
-            </h3>
-        </div>
-        <script src="main.js"></script>
-        `
-  body.appendChild(sectionThree)
-}
+// function endToStart(){
+  // let sectionThree = document.createElement("section")
+  // sectionThree.innerHTML = `
+  //       <div>
+  //           <h1 id="gametitle">CORONA DODGER</h1>
+  //       </div>
+  //       <div class="startbtndiv">
+  //           <button type="button" id="startbtn">START</button>
+  //       </div>
+  //       <div class="box">
+  //           <h3 class="box" id="starttxt">
+  //               Keep the Corona virus alive by moving up and down with your keyboard,<br> 
+  //               collect spreader events and avoid the lockdown at all costs!
+  //           </h3>
+  //       </div>
+        
+  //       `
+  // body.appendChild(sectionThree)
+// }
 
 function resetVar(){
-  canvas = ""
-  ctx = ""
+  canvas = document.querySelector('canvas')
+  ctx = canvas.getContext('2d')
   virusX = 30
   virusY = 175
   maskX = 950
@@ -251,4 +257,5 @@ function resetVar(){
   partyY = 350
   score = 0
   intervalID = 0
+  // remove elems arrazs
 }
