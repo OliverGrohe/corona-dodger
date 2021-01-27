@@ -12,6 +12,7 @@ let partyY = 350
 let score = 0
 let intervalID = 0
 
+
 // Changing section-tag
 function deleteSectionOne() {
   let sectionOne = document.querySelector("section")
@@ -107,7 +108,7 @@ function rightToLeftMask(){
   for (let i = 0; i < maskArr.length; i++){
     ctx.drawImage(mask, maskArr[i].x, maskArr[i].y, 100, 40)
     maskArr[i].x--
-    if(maskArr[i].x === 775) {
+    if(maskArr[i].x === 800) {
       maskArr.push({
         x: 1000,
         y: Math.floor(Math.random() * canvas.height)
@@ -187,7 +188,7 @@ function deleteSectionTwo () {
         <h3>You hit Lockdown and cant spread anymore!</h3>
       </div>
       <div id="score">
-        <h1>DISPLAY SCORE</h1>
+        <h1 id="scoreend">DISPLAY SCORE</h1>
       </div>
       <div>
         <div class="restartbtndiv">
@@ -197,8 +198,10 @@ function deleteSectionTwo () {
       
         `
   body.appendChild(sectionTwo)
-  
 }
+
+// let scoreEnd = document.querySelector(#score)
+// scoreEnd.innerText = `You have ${score}' points!`
 
 //---------------------------------------------------------------
 //---------------------------------------------------------------
@@ -224,26 +227,6 @@ function deleteSectionThree () {
   body.removeChild(sectionThree)
  }
 
-// function endToStart(){
-  // let sectionThree = document.createElement("section")
-  // sectionThree.innerHTML = `
-  //       <div>
-  //           <h1 id="gametitle">CORONA DODGER</h1>
-  //       </div>
-  //       <div class="startbtndiv">
-  //           <button type="button" id="startbtn">START</button>
-  //       </div>
-  //       <div class="box">
-  //           <h3 class="box" id="starttxt">
-  //               Keep the Corona virus alive by moving up and down with your keyboard,<br> 
-  //               collect spreader events and avoid the lockdown at all costs!
-  //           </h3>
-  //       </div>
-        
-  //       `
-  // body.appendChild(sectionThree)
-// }
-
 function resetVar(){
   canvas = document.querySelector('canvas')
   ctx = canvas.getContext('2d')
@@ -257,5 +240,7 @@ function resetVar(){
   partyY = 350
   score = 0
   intervalID = 0
-  // remove elems arrazs
+  partyArr = [{x: 1000, y: 500}]
+  lockdownArr = [{x: 1000, y: 500}]
+  maskArr = [{x: 1000, y: 200}]
 }
