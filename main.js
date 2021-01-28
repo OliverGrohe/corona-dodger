@@ -188,7 +188,7 @@ function deleteSectionTwo () {
         <h3>You hit Lockdown and cant spread anymore!</h3>
       </div>
       <div id="score">
-        <h1 id="scoreend">DISPLAY SCORE</h1>
+        <h1 id="scoreend">You have ${score} infections!</h1>
       </div>
       <div>
         <div class="restartbtndiv">
@@ -199,9 +199,6 @@ function deleteSectionTwo () {
         `
   body.appendChild(sectionTwo)
 }
-
-// let scoreEnd = document.querySelector(#score)
-// scoreEnd.innerText = `You have ${score}' points!`
 
 //---------------------------------------------------------------
 //---------------------------------------------------------------
