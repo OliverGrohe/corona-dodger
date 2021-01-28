@@ -11,6 +11,8 @@ let partyX = 950
 let partyY = 350
 let score = 0
 let intervalID = 0
+let audio1 = new Audio ("./audio/corona announcement.mp3")
+audio1.loop = true
 
 
 // Changing section-tag
@@ -39,6 +41,7 @@ function clickStart() {
     canvas = document.querySelector('canvas')
     ctx = canvas.getContext('2d')
     canvas.style.border = '2px solid black'
+    audio1.play()
     intervalID = setInterval(function(){
       requestAnimationFrame(draw)
     }, 3)
@@ -164,6 +167,8 @@ function collision() {
       deleteSectionTwo()
       addGameoverScreen()
       clickRestart()
+      audio1.pause()
+      audio1.currentTime = 0
     }
   }
 }
@@ -213,6 +218,7 @@ function clickRestart() {
       deleteSectionTwo()
       mainToGame()
       resetVar()
+      audio1.play()
       intervalID = setInterval(function(){
         requestAnimationFrame(draw)
       }, 3)
